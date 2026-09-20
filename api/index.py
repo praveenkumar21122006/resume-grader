@@ -51,7 +51,14 @@ except Exception as e1:
         app = Flask(__name__, static_folder=FRONTEND_DIR, static_url_path='')
         CORS(app)
         UPLOAD_FOLDER = os.path.join(ROOT, 'uploads')
-        os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+        try:
+            os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+        except OSError:
+            UPLOAD_FOLDER = "/tmp/uploads"
+            try:
+                os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+            except OSError:
+                pass
         ALLOWED_EXTENSIONS = {'.pdf', '.docx', '.doc', '.txt'}
 
         @app.route('/')
