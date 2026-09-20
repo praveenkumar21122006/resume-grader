@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ResumeGrade — AI Resume Grading Portal</title>
+<link rel="stylesheet" href="css/style.css" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+<header class="nav">
+  <div class="container nav-inner">
+    <div class="logo"><span class="logo-icon">◈</span> ResumeGrade <span class="badge">NLP</span></div>
+    <nav>
+      <a href="#how">How it works</a>
+      <a href="#grade" class="btn btn-primary btn-sm">Grade Resume</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <p class="eyebrow">AI-POWERED • ATS OPTIMIZED • INSTANT FEEDBACK</p>
+      <h1>Grade your resume<br><span class="gradient">like a recruiter + ATS</span></h1>
+      <p class="sub">Upload your PDF/DOCX or paste text. Get a 0–100 score, section-wise breakdown, JD match & actionable fixes — powered by NLP.</p>
+      <div class="hero-cta">
+        <a href="#grade" class="btn btn-primary btn-lg">Grade Now — Free</a>
+        <span class="hint">No signup • Private • 10s analysis</span>
+      </div>
+      <div class="trust">
+        <span>✓ PDF / DOCX / TXT</span><span>✓ TF-IDF + Keyword NLP</span><span>✓ ATS Compatibility</span>
+      </div>
+    </div>
+    <div class="hero-card">
+      <div class="mock-score">
+        <div class="ring" style="--pct:82; --color:#10b981"><span>82<span>/100</span></span></div>
+        <div><strong>Grade A — Strong</strong><p>Ready to apply with minor tweaks</p></div>
+      </div>
+      <div class="mock-bars">
+        <div><label>Completeness</label><div class="bar"><div style="width:85%"></div></div><span>21/25</span></div>
+        <div><label>Skills & Keywords</label><div class="bar"><div style="width:80%"></div></div><span>16/20</span></div>
+        <div><label>Experience & Impact</label><div class="bar"><div style="width:75%"></div></div><span>15/20</span></div>
+      </div>
+      <p class="mock-tip">💡 Quantify: “Increased revenue by 32%” beats “Responsible for sales”</p>
+    </div>
+  </div>
+</section>
+
+<section id="grade" class="grading-section">
+<div class="container">
+  <h2>Grade your resume</h2>
+  <p class="section-sub">Upload or paste. Optionally add a Job Description for tailored matching.</p>
+
+  <div class="grade-grid">
+    <div class="input-card">
+      <div id="dropZone" class="drop-zone">
+        <div class="drop-icon">⬆</div>
+        <p><strong>Drop resume here</strong> or click to browse</p>
+        <span>PDF, DOCX, TXT — max 5MB</span>
+        <input type="file" id="fileInput" accept=".pdf,.docx,.doc,.txt" hidden />
+        <div id="fileName" class="file-name"></div>
+      </div>
+
+      <div class="divider"><span>or paste resume text</span></div>
+      <textarea id="resumeText" placeholder="Paste your resume text here...
+
+Example:
+John Doe | john@email.com | +1 555-0100 | linkedin.com/in/johndoe
+Summary: Software Engineer with 3 years experience...
+Experience:
+- Developed microservices in Python & Django, reduced latency by 40%
+..."></textarea>
+
+      <label class="label">Job Description (optional — for match score)</label>
+      <textarea id="jdText" class="jd" placeholder="Paste the job description here to get a JD Match % and missing keywords..."></textarea>
+
+      <button id="gradeBtn" class="btn btn-primary btn-block btn-lg">⚡ Grade Resume</button>
+      <p id="errorMsg" class="error"></p>
+      <p id="loadingMsg" class="loading" style="display:none">Analyzing with NLP…</p>
+
+      <div class="quick-actions">
+        <button class="link-btn" onclick="loadSample('strong')">Load strong sample</button>
+        <button class="link-btn" onclick="loadSample('weak')">Load weak sample</button>
+        <button class="link-btn" onclick="clearAll()">Clear</button>
+      </div>
+    </div>
+
+    <div id="resultPanel" class="result-panel" style="display:none">
+      <!-- JS will fill -->
+    </div>
+    <div id="emptyPanel" class="empty-panel">
+      <div class="empty-icon">📊</div>
+      <h3>Your grade will appear here</h3>
+      <p>Get section scores, JD similarity, keyword gaps & fix-it suggestions in seconds.</p>
+      <ul>
+        <li>6-dimension scoring (100 points)</li>
+        <li>TF-IDF JD similarity + skill overlap</li>
+        <li>ATS compatibility check</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</section>
+
+<section id="how" class="how">
+  <div class="container">
+    <h2>How the NLP grading works</h2>
+    <div class="how-grid">
+      <div class="how-card"><span>01</span><h4>Parse & Clean</h4><p>PyPDF2 / python-docx extracts text. Regex finds contact, sections, skills, years, action verbs & quantifiable metrics.</p></div>
+      <div class="how-card"><span>02</span><h4>Score 6 Dimensions</h4><p>Completeness (25), Skills (20), Experience Impact (20), Formatting (15), Language (10), ATS (10) → 0-100 & grade A–F.</p></div>
+      <div class="how-card"><span>03</span><h4>JD Match (TF-IDF)</h4><p>Cosine similarity on TF-IDF vectors (1-2 grams) + skill overlap & missing-keyword list for tailoring.</p></div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <p>© 2026 ResumeGrade • Built with Flask, scikit-learn & NLP • Resumes are processed transiently and not stored.</p>
+  </div>
+</footer>
+
+<script src="js/app.js"></script>
+</body>
+</html>
