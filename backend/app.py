@@ -5,14 +5,21 @@ from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 from werkzeug.utils import secure_filename
 
-from nlp.parser import parse_resume, parse_text
-from nlp.grader import grade_resume
-from nlp.matcher import match_job, extract_jd_keywords
+try:
+    from nlp.parser import parse_resume, parse_text
+    from nlp.grader import grade_resume
+    from nlp.matcher import match_job, extract_jd_keywords
+except ImportError:
+    from backend.nlp.parser import parse_resume, parse_text
+    from backend.nlp.grader import grade_resume
+    from backend.nlp.matcher import match_job, extract_jd_keywords
 
-app = Flask(__name__, static_folder='../frontend', static_url_path='')
+BASE_DIR = os.path.dirname(__file__)
+FRONTEND_DIR = os.path.abspath(os.path.join(BASE_DIR, '..', 'frontend'))
+app = Flask(__name__, static_folder=FRONTEND_DIR, static_url_path='')
 CORS(app)
 
-UPLOAD_FOLDER = os.path.join(os.path.dirname(__file__), '..', 'uploads')
+UPLOAD_FOLDER = os.path.join(BASE_DIR, '..', 'uploads')
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 ALLOWED_EXTENSIONS = {'.pdf', '.docx', '.doc', '.txt'}
 
